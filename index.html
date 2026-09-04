@@ -5,11 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tyler Johnson</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .bubble {
+      position: absolute;
+      background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.2) 100%);
+      border-radius: 50%;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+    .bubble.pop {
+      animation: pop 0.3s ease-out forwards;
+    }
+    @keyframes pop {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(0); opacity: 0; }
+    }
+  </style>
 </head>
 <body>
   <h1>Tyler Johnson</h1>
   <p><a href="https://www.youtube.com/" target="_blank">Birthday: June 3, 2012</a></p>
   <img src="https://images.steamusercontent.com/ugc/1732178858694715121/A1D6351B48355B2CCFB331BBC705EB47BAFBFFAF/?imw=512&imh=512&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true" alt="Image" style="width: 100px;">
   <img src="images/Snoop doggy.jpg" alt="Snoop Doggy" style="width: 200px;">
+  <script>
+    function createBubble() {
+      const bubble = document.createElement('div');
+      bubble.classList.add('bubble');
+      
+      const size = Math.random() * 40 + 20;
+      const left = Math.random() * 100;
+      const duration = Math.random() * 5 + 8;
+      const delay = Math.random() * 5;
+      
+      bubble.style.width = size + 'px';
+      bubble.style.height = size + 'px';
+      bubble.style.left = left + '%';
+      bubble.style.bottom = '-50px';
+      bubble.style.animation = `rise ${duration}s linear ${delay}s forwards`;
+      
+      bubble.onclick = function() {
+        this.classList.add('pop');
+        setTimeout(() => this.remove(), 300);
+      };
+      
+      document.body.appendChild(bubble);
+      
+      setTimeout(() => bubble.remove(), (duration + delay) * 1000);
+    }
+    
+    function initBubbles() {
+      setInterval(createBubble, 500);
+    }
+    
+    document.addEventListener('DOMContentLoaded', initBubbles);
+  </script>
 </body>
 </html>
